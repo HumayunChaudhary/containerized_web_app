@@ -97,23 +97,20 @@ Backend Status: Error
 
 ---
 
-# Important Docker Networking Concept
+# Important (Linux Users)  
+ The flag below is required on Linux when a Docker container needs to access services running on the host machine using `host.docker.internal`.
 
-The frontend container communicates with the backend container using:
+ ```bash
+ --add-host=host.docker.internal:host-gateway
+ ```
 
-```nginx
-proxy_pass http://backend:3000;
-```
+ This creates a hostname mapping inside the container so that:
 
-Here:
+ ```text
+ host.docker.internal
+ ```
 
-```text
-backend
-```
-
-is the backend container name.
-
-Docker automatically resolves this container name to the container IP address using its internal DNS system, provided both containers are connected to the same user-defined bridge network.
+ resolves to the Docker host machine's IP address.
 
 ---
 
@@ -146,27 +143,26 @@ docker build -t frontend:latest .
 ---
 
 # Run Containers
+## Run the frontend container:
 
-## Run Backend Container
+ ```bash
+ docker run \
+   --add-host=host.docker.internal:host-gateway \
+   -d \
+   -p 8080:80 \
+   --name frontend \
+   frontend:latest
+ ```
 
-```bash
-docker run -d \
--p 3000:3000 \
---name backend \
---network app-network \
-backend:latest
-```
+ Run the backend container:
 
-## Run Frontend Container
-
-```bash
-docker run -d \
--p 80:80 \
---name frontend \
---network app-network \
-frontend:latest
-```
-
+ ```bash
+ docker run \
+   -d \
+   -p 3000:3000 \
+   --name backend \
+   backend:latest
+ ```
 ---
 
 # Access the Application
