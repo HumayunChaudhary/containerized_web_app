@@ -23,7 +23,7 @@ The project consists of:
                  │      Port: 80       │
                  └──────────┬──────────┘
                             │
-               proxy_pass http://backend:3000
+      proxy_pass http://host.docker.internal:3000
                             │
                             ▼
                  ┌─────────────────────┐
