@@ -114,14 +114,6 @@ Backend Status: Error
 
 ---
 
-# Create Docker Network
-
-```bash
-docker network create app-network
-```
-
----
-
 # Build Docker Images
 
 ## Build Backend Image
@@ -212,18 +204,6 @@ docker rm -f frontend backend
 ```
 
 ---
-
-# Why a Custom Docker Network Was Important
-
-Initially, the frontend container failed with:
-
-```text
-host not found in upstream "backend"
-```
-
-This occurred because container name resolution does not reliably work on Docker's default bridge network.
-
-Creating a custom bridge network solved the issue by enabling Docker's built-in DNS-based service discovery between containers.
 
 ---
 
