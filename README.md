@@ -7,8 +7,7 @@ The project consists of:
 - A frontend served by Nginx
 - A backend built with Node.js and Express
 - Docker containers connected through a custom bridge network for internal DNS-based service discovery
-
----
+- Frontend and backend containers communicate through the Docker host using `host.docker.internal`, configured via the `--add-host=host.docker.internal:host-gateway` flag on Linux
 
 # Project Architecture
 
